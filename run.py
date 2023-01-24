@@ -1,5 +1,5 @@
 from project.config import config
-from project.models import Genre
+from project.dao.models.genres import Genre
 from project.server import create_app, db
 
 app = create_app(config)
