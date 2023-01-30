@@ -1,10 +1,9 @@
 from sqlalchemy import Column, String, Integer
-from project.setup.db import db
+from project.setup.db import models
 from marshmallow import Schema, fields
 
-class User(db.Model):
-    __tablename__ = "users"
-    id = Column(Integer(100))
+class User(models.Base):
+    __tablename__ = "user"
     email = Column(String(100), unique=True)
     password = Column(String(100))
     name = Column(String(100))

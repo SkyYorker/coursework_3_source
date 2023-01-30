@@ -1,17 +1,19 @@
 from sqlalchemy import Column, String, Integer, Float
-from project.setup.db import db
+from project.setup.db import models
 from marshmallow import Schema, fields
 
-class Movie(db.Model):
-    __tablename__ = "movies"
-    id = Column(Integer(100))
-    title = Column(String(100))
-    trailer = Column(String(100))
-    description = Column(String(100))
-    year = Column(Integer(100))
+
+class Movie(models.Base):
+    __tablename__ = "movie"
+    title = Column(String(225))
+    trailer = Column(String(255))
+    description = Column(String(255))
+    year = Column(Integer)
     rating  = Column(Float(100))
-    genre_id  = Column(Integer(100))
-    director_id  = Column(Integer(100))
+    genre_id  = Column(Integer, models.db.ForeignKey('genre.id'))
+    genre = models.db.relationship('Genre')
+    director_id  = Column(Integer,models.db.ForeignKey('director.id'))
+    director = models.db.relationship('Director')
 
 
 class MovieSchema(Schema):
@@ -20,6 +22,6 @@ class MovieSchema(Schema):
     trailer = fields.Str
     description = fields.Str
     year = fields.Int
-    rating  = fields.FLoat
+    rating  = fields.Int
     genre_id  = fields.Int
     director_id  = fields.Int

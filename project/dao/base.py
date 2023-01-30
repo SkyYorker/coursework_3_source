@@ -30,3 +30,5 @@ class BaseDAO(Generic[T]):
             except NotFound:
                 return []
         return stmt.all()
+    
+    
