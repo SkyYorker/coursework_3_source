@@ -19,3 +19,7 @@ movie: Model = api.model('Фильм', {
     "director_id"  : fields.Integer(required=True, max_length=100, example='3'),
 })
 
+director: Model = api.model('Режиссёр', {
+    'id': fields.Integer(required=True, example=1),
+    'name': fields.String(required=True, max_length=100, example='Тейлор Шеридан'),
+})

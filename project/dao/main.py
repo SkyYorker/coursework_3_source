@@ -13,12 +13,12 @@ class GenresDAO(BaseDAO[Genre]):
     
 
 class MoviesDAO(BaseDAO[Movie]):
-    __model__ = Director
+    __model__ = Movie
 
 
 
 class DirectorsDAO(BaseDAO[Director]):
-    __model__ = Movie
+    __model__ = Director
     
     
 class UsersDAO(BaseDAO[User]):

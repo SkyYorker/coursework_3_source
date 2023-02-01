@@ -4,7 +4,7 @@ from marshmallow import Schema, fields
 
 class Director(models.Base):
     __tablename__ = "director"
-    name = Column(String(255), primary_key=True)
+    name = Column(String(255), unique=True)
     
     
 class DirectorSchema(Schema):
