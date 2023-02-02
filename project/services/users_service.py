@@ -14,8 +14,8 @@ class UsersService:
         self.user_dao = dao
         
         
-    def get_by_username(self, name):
-        self.user_dao.get_by_username(name)
+    def get_by_email(self, email):
+        self.user_dao.get_by_email(email)
 
 
     def add_user(self, user):

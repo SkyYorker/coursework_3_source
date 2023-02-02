@@ -11,7 +11,7 @@ from sqlalchemy import desc
 from project.dao.models.genres import Genre
 from project.dao.models.directors import Director
 from project.dao.models.movies import Movie
-from project.dao.models.users import User, user_schema
+from project.dao.models.users import User
 
 
 class GenresDAO(BaseDAO[Genre]):
