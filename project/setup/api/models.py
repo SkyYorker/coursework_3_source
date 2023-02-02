@@ -23,3 +23,13 @@ director: Model = api.model('Режиссёр', {
     'id': fields.Integer(required=True, example=1),
     'name': fields.String(required=True, max_length=100, example='Тейлор Шеридан'),
 })
+
+
+user: Model = api.model('Пользователь', {
+    'id': fields.Integer(required=True, example=1),
+    "email" : fields.String(required=True, max_length=100),
+    "password" : fields.String(required=True, max_length=100),
+    "name" : fields.String(required=True, max_length=100),
+    "surname" : fields.String(required=True, max_length=100),
+    "favorite_genre"  : fields.String(required=True, max_length=100)
+})

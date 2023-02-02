@@ -7,6 +7,6 @@ class Director(models.Base):
     name = Column(String(255), unique=True)
     
     
-class DirectorSchema(Schema):
-    id = fields.Int
-    name = fields.Str
+# class DirectorSchema(Schema):
+#     id = fields.Int
+#     name = fields.Str

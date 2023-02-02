@@ -1,14 +1,14 @@
 from typing import Optional
 
 
-from project.dao.base import BaseDAO
+from project.dao.main import MoviesDAO
 from project.exceptions import BaseServiceError, ItemNotFound
 from project.dao.models.movies import Movie
 
 from flask import request
 
 class MoviesService():
-    def __init__(self, dao: BaseDAO) -> None:
+    def __init__(self, dao: MoviesDAO) -> None:
         self.dao = dao
         
         

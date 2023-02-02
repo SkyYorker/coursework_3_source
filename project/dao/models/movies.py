@@ -16,12 +16,15 @@ class Movie(models.Base):
     director = models.db.relationship('Director')
 
 
-class MovieSchema(Schema):
-    id = fields.Int
-    title = fields.Str
-    trailer = fields.Str
-    description = fields.Str
-    year = fields.Int
-    rating  = fields.Int
-    genre_id  = fields.Int
-    director_id  = fields.Int
+# class MovieSchema(Schema):
+#     id = fields.Int()
+#     title = fields.Str()
+#     trailer = fields.Str()
+#     description = fields.Str()
+#     year = fields.Int()
+#     rating  = fields.Int()
+#     genre_id  = fields.Int()
+#     director_id  = fields.Int()
+
+
+# movies_schema = MovieSchema(many=True)
