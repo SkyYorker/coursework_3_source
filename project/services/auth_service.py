@@ -1,17 +1,43 @@
 from flask import current_app
-from project.tools.security import generate_password_digest, generate_password_hash
-from project.services.users_service import UserService
+
+import calendar
+import datetime
+
+
+from project.services.users_service import UsersService
 import jwt
 
 
 class AuthService:
-    def __init__(self, user_service: UserService) -> None:
-        self.user_service = user_service
+    def __init__(self, dao: UsersService) -> None:
+        self.user_service = dao
 
 
-    def generate_token(self, name):
-        user = self.user_service.get_by_username(name)
+    
+    def generate_token(self, email, password):
+        user = self.user_service.get_by_email(email)
         
         if not user:
             raise Exception("Не найден пользователь")
+
+
         
+        data = {
+            'email': user["email"],
+            'username': user["name"],
+            
+        }
+
+
+        min15 = datetime.datetime.utcnow() + datetime.timedelta(current_app.config['TOKEN_EXPIRE_MINUTES'])
+        data['exp'] = calendar.timegm(min15.timetuple())
+        access_token = jwt.encode(data, current_app.config['SECRET_KEY'])
+
+        day130 = datetime.datetime.utcnow() + datetime.timedelta(current_app.config['TOKEN_EXPIRE_DAYS'])
+        data['exp'] = calendar.timegm(day130.timetuple())
+        refresh_token = jwt.encode(data, current_app.config['SECRET_KEY'])
+        
+        return {"access_token":access_token, "refresh_token":refresh_token}
+
+
+    

@@ -11,10 +11,12 @@ class User(models.Base):
     favorite_genre  = Column(String(100))
     
     
-class DirectorSchema(Schema):
-    id = fields.Int
-    email = fields.Str
-    password = fields.Str
-    name = fields.Str
-    surname = fields.Str
-    favorite_genre  = fields.Str
+# class DirectorSchema(Schema):
+#     id = fields.Integer()
+#     email = fields.String()
+#     password = fields.String()
+#     name = fields.String()
+#     surname = fields.String()
+#     favorite_genre  = fields.String()
+
+
