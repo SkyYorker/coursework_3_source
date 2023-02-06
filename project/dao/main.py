@@ -60,10 +60,10 @@ class UsersDAO(BaseDAO[User]):
         user.favorite_genre = req_json.get("favorite_genre")
         self._db_session.add(user)
         self._db_session.commit()
-        return ""
+        return "Пользователь обновлён"
 
-    def password_change(self, user_id):
-        user = User.query.get(user_id)
+    def password_change(self, email):
+        user = User.query.get(email)
         req_json = request.json
         user.password = req_json.get("password")
         self._db_session.add(user)

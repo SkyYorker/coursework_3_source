@@ -1,9 +1,11 @@
 from flask_restx import Namespace, Resource
+from flask import current_app
+from flask import request
 
 from project.container import user_service
 from project.setup.api.models import user
 
-from flask import request
+import jwt
 
 api = Namespace('user')
 
@@ -19,21 +21,23 @@ class UserView(Resource):
         return user
 
 
-@api.route('/user/<int:user_id>')
+@api.route('/<int:user_id>')
 class UserView(Resource):
     methods = ['PATCH']
-    def patch(self, user_id):
+    def patch(self, user_id: int):
         
         
         return user_service.patch_user(user_id)
         
 
 
-@api.route('/user/password/<int:user_id>')
+@api.route('/password/')
 class UserView(Resource):
-    def put(self, user_id):
+    def put(self):
         req_json = request.json
-        password_1 = req_json.get("password_1")
-        password_2 = req_json.get("password_2")
-        user_service.password_change(password_1, password_2, user_id)
-        pass 
+        token = request.headers['Authorization'].split()[1]
+        data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
+        email = data['email']
+        old_password = req_json.get("old_password")
+        user_service.password_change(old_password, email)
+        return user_service.password_change(email) 

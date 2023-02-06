@@ -31,11 +31,12 @@ class UsersService:
 
 
     def patch_user(self, id):
-        if user := self.user_dao.patch_user(id):
-
-            return user
+        if _ := self.user_dao.get_by_id(id):
+            return self.user_dao.patch_user(id)
         raise ItemNotFound(f'Пользователь с таким id={id} не найден.')
 
     
-    def password_change(self, password_1, password_2, id):
-        pass
+    def password_change(self, old_password, email):
+        if _ := self.get_by_email(email):
+            if generate_password_hash(old_password) == old_password:
+                return self.user_dao.password_change(email)
