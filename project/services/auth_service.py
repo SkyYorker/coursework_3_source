@@ -16,15 +16,14 @@ class AuthService:
     
     def generate_token(self, email, password):
         user = self.user_service.get_by_email(email)
-        
         if not user:
             raise Exception("Не найден пользователь")
 
 
         
         data = {
-            'email': user["email"],
-            'username': user["name"],
+            'email': user.email,
+            # 'username': user["name"],
             
         }
 
@@ -39,5 +38,13 @@ class AuthService:
         
         return {"access_token":access_token, "refresh_token":refresh_token}
 
+    def refresh_token(self,refresh_token):
+        data = jwt.decode(refresh_token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
+        email = data.get("email")
+        user = self.user_service.get_by_email(email)
 
-    
+
+        if not user:
+            raise Exception('плохой токен')
+
+        return self.generate_token(email, user.password)  

@@ -38,6 +38,7 @@ class DirectorsDAO(BaseDAO[Director]):
 class UsersDAO(BaseDAO[User]):
     __model__ = User
 
+
     def get_by_email(self, email):
         email = User.query.filter(User.email == email).first()
         return email
@@ -51,3 +52,20 @@ class UsersDAO(BaseDAO[User]):
         return user
         
 
+    def patch_user(self, user_id):
+        user = User.query.get(user_id)
+        req_json = request.json
+        user.name = req_json.get("name")
+        user.surname = req_json.get("surname")
+        user.favorite_genre = req_json.get("favorite_genre")
+        self._db_session.add(user)
+        self._db_session.commit()
+        return ""
+
+    def password_change(self, user_id):
+        user = User.query.get(user_id)
+        req_json = request.json
+        user.password = req_json.get("password")
+        self._db_session.add(user)
+        self._db_session.commit()
+        return "Смена пароля прошла успешно"

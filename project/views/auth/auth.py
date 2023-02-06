@@ -20,15 +20,24 @@ class AuthView(Resource):
 
 @api.route('/login')
 class AuthView(Resource):
-    @api.marshal_with(user)
     def post(self):
         req_json = request.json
-        username = req_json.get("name")
-        pasword = req_json.get("password")
-        if not(username or pasword):
-            return "Нужно имя и пароль", 400
+        email = req_json.get("email")
+        password = req_json.get("password")
+        if not(email or password):
+            return "Нужнен логин и пароль", 400
 
-        tokens = auth_service.generate_token(username, pasword)
+        tokens = auth_service.generate_token(email, password)
+        if tokens:
+            return tokens
+        else:
+            return "Хрен тебе", 400
+
+
+    def put(self):
+        req_json = request.json
+        ref_token = req_json.get('refresh_token')       
+        tokens = auth_service.refresh_token(ref_token)
         if tokens:
             return tokens
         else:
