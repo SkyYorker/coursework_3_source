@@ -18,4 +18,4 @@ class DirectorsService():
         raise ItemNotFound(f'Режиссёр с таким id={id} не найден.')
         
     def get_all(self, page: Optional[int] = None) -> list[Director]:
-        return self.dao.get_all(page=page)
+        return self.dao.get_all(page)

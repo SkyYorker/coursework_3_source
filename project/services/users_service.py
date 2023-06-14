@@ -25,7 +25,6 @@ class UsersService:
 
     def get_by_id(self, id):
         if user := self.user_dao.get_by_id(id):
-
             return user
         raise ItemNotFound(f'Пользователь с таким id={id} не найден.')
 
@@ -36,7 +35,8 @@ class UsersService:
         raise ItemNotFound(f'Пользователь с таким id={id} не найден.')
 
     
-    def password_change(self, old_password, email):
+    def password_change(self, old_password, email, new_password):
         if _ := self.get_by_email(email):
             if generate_password_hash(old_password) == old_password:
-                return self.user_dao.password_change(email)
+                password = generate_password_digest(new_password)
+                return self.user_dao.password_change(email, password)

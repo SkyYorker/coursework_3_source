@@ -9,7 +9,7 @@ class User(models.Base):
     name = Column(String(100))
     surname = Column(String(100))
     favorite_genre  = Column(String(100))
-    
+    # role = Column(String(100))
     
 # class DirectorSchema(Schema):
 #     id = fields.Integer()

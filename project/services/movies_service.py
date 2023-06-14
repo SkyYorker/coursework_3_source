@@ -25,6 +25,6 @@ class MoviesService():
         request_data = request.args
         if 'status' in request_data:
             if request_data['status'] == 'new':
-                return self.dao.get_new(page=page)
+                return self.dao.get_new(page)
         
         

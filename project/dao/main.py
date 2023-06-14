@@ -62,10 +62,10 @@ class UsersDAO(BaseDAO[User]):
         self._db_session.commit()
         return "Пользователь обновлён"
 
-    def password_change(self, email):
+    def password_change(self, email, new_password):
         user = User.query.get(email)
         req_json = request.json
-        user.password = req_json.get("password")
+        user.password = new_password
         self._db_session.add(user)
         self._db_session.commit()
         return "Смена пароля прошла успешно"
