@@ -16,4 +16,8 @@ def generate_password_digest(password: str) -> bytes:
 def generate_password_hash(password: str) -> str:
     return base64.b64encode(generate_password_digest(password)).decode('utf-8')
 
+
+def decode_password_hash(password):
+    base64_bytes = password.encode('utf-8')
+    return base64.b64decode(base64_bytes)
 # TODO: [security] Описать функцию compose_passwords(password_hash: Union[str, bytes], password: str)

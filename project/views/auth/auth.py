@@ -7,6 +7,10 @@ from project.setup.api.models import user
 
 from flask import request
 
+from project.dao.main import UsersDAO
+
+from project.tools.security import generate_password_hash, decode_password_hash
+
 api = Namespace('auth')
 
 

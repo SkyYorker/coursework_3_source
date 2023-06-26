@@ -31,5 +31,6 @@ user: Model = api.model('Пользователь', {
     "name" : fields.String(required=True, max_length=100),
     "surname" : fields.String(required=True, max_length=100),
     "favorite_genre" : fields.String(required=True, max_length=100),
+    "password": fields.String(required=True, max_length=100)
     # "role": fields.String(required=True, max_length=100)
 })

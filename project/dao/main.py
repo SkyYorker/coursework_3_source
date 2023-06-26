@@ -1,6 +1,6 @@
 import sys
-sys.path.append(r"D:\Pro\Python\coursework_3_source\project\dao\base.py")
-sys.path.append(r"D:\Pro\Python\coursework_3_source\project\dao\models\genres.py")
+sys.path.append(r"R:\Pro\Python\coursework_3_source\project\dao\base.py")
+sys.path.append(r"R:\Pro\Python\coursework_3_source\project\dao\models\genres.py")
 from project.dao.base import BaseDAO
 from flask_sqlalchemy import BaseQuery
 
@@ -64,7 +64,7 @@ class UsersDAO(BaseDAO[User]):
 
     def password_change(self, email, new_password):
         user = User.query.get(email)
-        req_json = request.json
+        # req_json = request.json
         user.password = new_password
         self._db_session.add(user)
         self._db_session.commit()

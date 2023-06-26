@@ -36,7 +36,8 @@ class UsersService:
 
     
     def password_change(self, old_password, email, new_password):
-        if _ := self.get_by_email(email):
-            if generate_password_hash(old_password) == old_password:
-                password = generate_password_digest(new_password)
+        if email := self.user_dao.get_by_email(email):
+            if generate_password_hash(old_password) == email.password:
+                password = generate_password_hash(new_password)
                 return self.user_dao.password_change(email, password)
+        raise ItemNotFound(f'Пользователь с такой почтой={email} не найден.')

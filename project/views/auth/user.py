@@ -37,7 +37,7 @@ class UserView(Resource):
         req_json = request.json
         token = request.headers['Authorization'].split()[1]
         data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
-        email = data['email']
+        email = req_json.get("email")
         old_password = req_json.get("old_password")
         new_password = req_json.get('new_password')
         # user_service.password_change(old_password, email, new_password)
