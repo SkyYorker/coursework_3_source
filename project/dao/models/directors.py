@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String
 from project.setup.db import models
 from marshmallow import Schema, fields
 

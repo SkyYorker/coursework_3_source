@@ -7,7 +7,6 @@ from project.setup.api.models import user
 
 from flask import request
 
-from project.dao.main import UsersDAO
 
 from project.tools.security import generate_password_hash, decode_password_hash
 
@@ -28,14 +27,18 @@ class AuthView(Resource):
         req_json = request.json
         email = req_json.get("email")
         password = req_json.get("password")
+        user = user_service.get_by_email(email)
         if not(email or password):
             return "Нужнен логин и пароль", 400
-
         tokens = auth_service.generate_token(email, password)
-        if tokens:
-            return tokens
+        if email == user.email:
+            if generate_password_hash(password) == user.password:          
+                if tokens:
+                    return tokens
+            else:
+                return 'Пароли не совпадают'
         else:
-            return "Хрен тебе", 400
+            return "Что-то не так", 400
 
 
     def put(self):
@@ -45,4 +48,4 @@ class AuthView(Resource):
         if tokens:
             return tokens
         else:
-            return "Хрен тебе", 400
+            return "Что-то не так", 400

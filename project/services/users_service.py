@@ -2,9 +2,8 @@ from project.dao.main import UsersDAO
 from project.exceptions import BaseServiceError, ItemNotFound
 
 
-from project.tools.security import generate_password_digest, generate_password_hash
+from project.tools.security import  generate_password_hash
 
-from flask import request
 
 
 
@@ -19,7 +18,7 @@ class UsersService:
 
 
     def add_user(self, user):
-        user["password"] = generate_password_digest(user["password"])
+        user["password"] = generate_password_hash(user["password"])
         return self.user_dao.register_user()
 
 
@@ -40,4 +39,6 @@ class UsersService:
             if generate_password_hash(old_password) == email.password:
                 password = generate_password_hash(new_password)
                 return self.user_dao.password_change(email, password)
+            else:
+                return "Что-то не так"
         raise ItemNotFound(f'Пользователь с такой почтой={email} не найден.')

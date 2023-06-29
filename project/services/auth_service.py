@@ -14,7 +14,7 @@ class AuthService:
 
 
     
-    def generate_token(self, email, password):
+    def generate_token(self, email):
         user = self.user_service.get_by_email(email)
         if not user:
             raise Exception("Не найден пользователь")
@@ -43,8 +43,7 @@ class AuthService:
         email = data.get("email")
         user = self.user_service.get_by_email(email)
 
-
         if not user:
             raise Exception('плохой токен')
 
-        return self.generate_token(email, user.password)  
+        return self.generate_token(email)  

@@ -1,16 +1,15 @@
-from flask import request
 
 from project.dao.main import GenresDAO
 from project.exceptions import ItemNotFound
-from project.dao.models.genres import Genre
+
 
 
 class GenresService:
     def __init__(self, dao: GenresDAO):
         self.dao = dao
 
-    def get_item(self, pk):
-        if genre := self.dao.get_by_id(pk):
+    def get_item(self, id):
+        if genre := self.dao.get_by_id(id):
             return genre
         raise ItemNotFound(f'Жанр с таким id={id} не найден.')
 

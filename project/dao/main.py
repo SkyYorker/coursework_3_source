@@ -12,6 +12,7 @@ from project.dao.models.genres import Genre
 from project.dao.models.directors import Director
 from project.dao.models.movies import Movie
 from project.dao.models.users import User
+from project.dao.models.favorite import Favorite
 
 
 class GenresDAO(BaseDAO[Genre]):
@@ -57,15 +58,27 @@ class UsersDAO(BaseDAO[User]):
         req_json = request.json
         user.name = req_json.get("name")
         user.surname = req_json.get("surname")
-        user.favorite_genre = req_json.get("favorite_genre")
         self._db_session.add(user)
         self._db_session.commit()
         return "Пользователь обновлён"
 
-    def password_change(self, email, new_password):
-        user = User.query.get(email)
-        # req_json = request.json
+    def password_change(self, user, new_password):
         user.password = new_password
         self._db_session.add(user)
         self._db_session.commit()
         return "Смена пароля прошла успешно"
+    
+
+    def added_movie_by_user(self, movie_id):
+        movie = Movie.query.get(movie_id)
+        movie_genre = movie.genre_id
+        user_id = request.json.get('user_id')
+        user = UsersDAO.get_by_id(user_id)
+        user.favorite_genre = movie_genre
+        self._db_session.add(user)
+        self._db_session.commit()
+        return "Фильм успешно добавлен"
+    
+
+class FavoriteDAO(BaseDAO[Favorite]):
+    __model__ = Favorite

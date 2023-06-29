@@ -34,3 +34,8 @@ user: Model = api.model('Пользователь', {
     "password": fields.String(required=True, max_length=100)
     # "role": fields.String(required=True, max_length=100)
 })
+
+favorite: Model = api.model('Любимый жанр', {
+    "user_id": fields.Integer(required=True, max_length=100),
+    "movie_id": fields.Integer(required=True, max_length=100)
+})
