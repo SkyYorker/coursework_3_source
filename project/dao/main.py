@@ -12,7 +12,7 @@ from project.dao.models.genres import Genre
 from project.dao.models.directors import Director
 from project.dao.models.movies import Movie
 from project.dao.models.users import User
-from project.dao.models.favorite import Favorite
+
 
 
 class GenresDAO(BaseDAO[Genre]):
@@ -80,5 +80,4 @@ class UsersDAO(BaseDAO[User]):
         return "Фильм успешно добавлен"
     
 
-class FavoriteDAO(BaseDAO[Favorite]):
-    __model__ = Favorite
+

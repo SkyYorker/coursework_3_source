@@ -3,7 +3,7 @@ from .movies_service import MoviesService
 from .directors_service import DirectorsService
 from .users_service import UsersService
 from .auth_service import AuthService
-from .favorite_service import FavoriteService
+
 
 
 __all__ = ["GenresService", "MoviesService", "DirectorsService", "UsersService", "AuthService", "FavoriteService"]
